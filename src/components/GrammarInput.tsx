@@ -39,7 +39,7 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
                 onChange={(e) => setInput(e.target.value)}
                 rows={6}
                 cols={40}
-                placeholder="Ejemplo: E->E+T\nE->T\nT->T*F\nT->F\nF->i\nF->(E)"
+                placeholder={"Ejemplo: E->E+T\nE->T\nT->T*F\nT->F\nF->i\nF->(E)"}
             />
             <br />
             <button onClick={handleSubmit}>Eliminar Recursividad</button>
