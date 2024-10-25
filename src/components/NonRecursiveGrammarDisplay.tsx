@@ -1,9 +1,9 @@
 // NonRecursiveGrammarDisplay.tsx
 import React from "react";
-import { Gramatica } from "../utils/deleteRecursive";
+import { Grammar } from "../types/Grammar.type";
 
 interface NonRecursiveGrammarDisplayProps {
-    grammar: Gramatica;
+    grammar: Grammar;
 }
 
 const NonRecursiveGrammarDisplay: React.FC<NonRecursiveGrammarDisplayProps> = ({ grammar }) => {

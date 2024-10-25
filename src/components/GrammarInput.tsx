@@ -1,16 +1,16 @@
 // GrammarInput.tsx
 import React, { useState } from "react";
-import { Gramatica } from "../utils/deleteRecursive";
+import { Grammar } from "../types/Grammar.type";
 
 interface GrammarInputProps {
-    onGrammarSubmit: (grammar: Gramatica) => void;
+    onGrammarSubmit: (grammar: Grammar) => void;
 }
 
 const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
     const [input, setInput] = useState("");
 
     const handleSubmit = () => {
-        const grammar: Gramatica = {};
+        const grammar: Grammar = {};
         const lines = input.split("\n");
 
         lines.forEach(line => {
