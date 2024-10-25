@@ -2,16 +2,23 @@
 import React, { useState } from "react";
 import GrammarInput from "./GrammarInput";
 import NonRecursiveGrammarDisplay from "./NonRecursiveGrammarDisplay";
-import { eliminarRecursividadIzquierda, Gramatica } from "../utils/deleteRecursive"
+import { removeLeftRecursion } from "../utils/leftRecursion";
+import { leftFactor } from "../utils/leftFactoring";
+import { Grammar } from "../types/Grammar.type";
+
 
 const GrammarApp: React.FC = () => {
-    const [grammar, setGrammar] = useState<Gramatica>({});
-    const [nonRecursiveGrammar, setNonRecursiveGrammar] = useState<Gramatica | null>(null);
+    const [nonRecursiveGrammar, setNonRecursiveGrammar] = useState<Grammar | null>(null);
 
-    const handleGrammarSubmit = (inputGrammar: Gramatica) => {
-        setGrammar(inputGrammar);
-        const result = eliminarRecursividadIzquierda(inputGrammar);
-        setNonRecursiveGrammar(result);
+    const handleGrammarSubmit = (inputGrammar: Grammar) => {
+        // Primero, eliminar recursividad a la izquierda
+        const grammarWithoutRecursion = removeLeftRecursion(inputGrammar);
+
+        // Luego, factorizar a la izquierda si es necesario
+        const factoredGrammar = leftFactor(grammarWithoutRecursion);
+
+        // Establecer la gramática final sin recursividad y con factor común
+        setNonRecursiveGrammar(factoredGrammar);
     };
 
     return (
