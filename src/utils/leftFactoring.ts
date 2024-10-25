@@ -1,6 +1,4 @@
-// leftFactoring.ts
-export type Production = string;
-export type Grammar = { [nonTerminal: string]: Production[] };
+import { Grammar } from "../types/Grammar.type";
 
 export function leftFactor(grammar: Grammar): Grammar {
     const newGrammar: Grammar = {};
