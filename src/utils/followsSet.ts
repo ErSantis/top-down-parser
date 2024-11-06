@@ -1,7 +1,4 @@
-type Production = string;
-type Grammar = { [nonTerminal: string]: Production[] };
-type FirstSet = { [symbol: string]: Set<string> };
-type FollowSet = { [symbol: string]: Set<string> };
+import { FirstSet, FollowSet, Grammar } from "../types/Grammar.type";
 
 export function calculateFollowSets(
     grammar: Grammar,

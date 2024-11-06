@@ -1,9 +1,9 @@
-type FollowSet = { [symbol: string]: Set<string> };
+//FollowSetDisplay.tsx
+import { FollowSet } from "../types/Grammar.type";
 
 interface FollowSetDisplayProps {
     folloset: FollowSet;
 }
-
 const FirstSetDisplay: React.FC<FollowSetDisplayProps> = ({ folloset }) => {
     return (
         <div>

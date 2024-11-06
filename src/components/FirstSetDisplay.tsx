@@ -1,12 +1,9 @@
 // FirstSetDisplay.tsx
-import React from "react";
-
-type FirstSet = { [symbol: string]: Set<string> };
+import { FirstSet } from "../types/Grammar.type";
 
 interface FirstSetDisplayProps {
     firstSet: FirstSet;
 }
-
 const FirstSetDisplay: React.FC<FirstSetDisplayProps> = ({ firstSet }) => {
     return (
         <div>

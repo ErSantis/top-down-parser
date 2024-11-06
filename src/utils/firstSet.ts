@@ -1,7 +1,5 @@
 // firstSet.ts
-type Production = string;
-type Grammar = { [nonTerminal: string]: Production[] };
-type FirstSet = { [symbol: string]: Set<string> };
+import { FirstSet, Grammar } from "../types/Grammar.type";
 
 export function calculateFirstSets(grammar: Grammar): FirstSet {
     const firstSets: FirstSet = {};
