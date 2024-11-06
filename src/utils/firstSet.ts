@@ -11,6 +11,11 @@ export function calculateFirstSets(grammar: Grammar): FirstSet {
         firstSets[nonTerminal] = new Set();
     }
 
+    // Función para dividir la producción en símbolos completos (usando una expresión regular)
+    const splitProduction = (production: string): string[] => {
+        return production.match(/[A-Z]'*|./g) || [];
+    };
+
     // Función para calcular PRIMERO de un símbolo
     const getFirst = (symbol: string): Set<string> => {
         // Regla 1: Si el símbolo es terminal, PRIMERO(X) es {X}
@@ -22,8 +27,9 @@ export function calculateFirstSets(grammar: Grammar): FirstSet {
         const first = firstSets[symbol];
         for (const production of grammar[symbol]) {
             let containsEpsilon = true;
-
-            for (const prodSymbol of production) {
+            const symbols = splitProduction(production); // Obtener símbolos completos en la producción
+            for (const prodSymbol of symbols) {
+                console.log(prodSymbol);
                 const firstOfProdSymbol = getFirst(prodSymbol);
 
                 // Agregar todos los elementos de PRIMERO(Y_i) a PRIMERO(X), excepto &
