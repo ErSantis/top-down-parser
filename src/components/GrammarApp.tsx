@@ -17,11 +17,12 @@ const GrammarApp: React.FC = () => {
         const grammarWithoutRecursion = removeLeftRecursion(inputGrammar);
         const factoredGrammar = leftFactor(grammarWithoutRecursion);
         
+        // Actualizar los estados para mostrar los resultados
+        setProcessedGrammar(factoredGrammar);
+        
         // Calcular conjunto PRIMERO de cada no terminal
         const firstSets = calculateFirstSets(factoredGrammar);
 
-        // Actualizar los estados para mostrar los resultados
-        setProcessedGrammar(factoredGrammar);
         setFirstSet(firstSets);
     };
 

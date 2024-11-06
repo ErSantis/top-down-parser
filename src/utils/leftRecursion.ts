@@ -25,7 +25,12 @@ export function removeLeftRecursion(grammar: Grammar): Grammar {
 
         // Crear nuevo no terminal y actualizar producciones
         const newNonTerminal = `${nonTerminal}'`;
-        newGrammar[nonTerminal] = nonRecursiveProds.map((prod) => `${prod}${newNonTerminal}`);
+        newGrammar[nonTerminal] = nonRecursiveProds.map((prod) => {
+            if (prod === '&') {
+                return `${newNonTerminal}`;
+            }
+            return `${prod}${newNonTerminal}`;
+        });
         newGrammar[newNonTerminal] = recursiveProds.map((prod) => `${prod}${newNonTerminal}`);
         newGrammar[newNonTerminal].push("&"); // Agregar ε para permitir producción vacía
     }

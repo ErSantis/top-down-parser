@@ -36,7 +36,7 @@ export function leftFactor(grammar: Grammar): Grammar {
             }
 
             // Agregar las producciones restantes al nuevo no terminal
-            newGrammar[newNonTerminal] = prefixes[commonPrefix].map((rest) => rest || "ε");
+            newGrammar[newNonTerminal] = prefixes[commonPrefix].map((rest) => rest || "&");
         } else {
             newGrammar[nonTerminal] = productions;
         }

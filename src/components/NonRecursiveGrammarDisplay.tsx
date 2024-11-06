@@ -13,11 +13,7 @@ const NonRecursiveGrammarDisplay: React.FC<NonRecursiveGrammarDisplayProps> = ({
             <pre>
                 {Object.entries(grammar).map(([nonTerminal, productions]) => (
                     <div key={nonTerminal}>
-                        {productions.map((production, index) => (
-                            <div key={index}>
-                                {nonTerminal}{'->'}{production || "&"} 
-                            </div>
-                        ))}
+                        {nonTerminal}{' -> '}{productions.join(' | ')}
                     </div>
                 ))}
             </pre>
