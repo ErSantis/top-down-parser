@@ -16,21 +16,27 @@ export function removeLeftRecursion(grammar: Grammar): Grammar {
                 nonRecursiveProds.push(production);
             }
         });
-
+        
         // Si no se encuentra recursividad, mantener las producciones tal cual
         if (recursiveProds.length === 0) {
             newGrammar[nonTerminal] = productions;
             continue;
         }
 
+
+
         // Crear nuevo no terminal y actualizar producciones
         const newNonTerminal = `${nonTerminal}'`;
-        newGrammar[nonTerminal] = nonRecursiveProds.map((prod) => {
-            if (prod === '&') {
-                return `${newNonTerminal}`;
-            }
-            return `${prod}${newNonTerminal}`;
-        });
+        if (nonRecursiveProds.length === 0) {
+            newGrammar[nonTerminal] = [`${newNonTerminal}`];
+        } else {
+            newGrammar[nonTerminal] = nonRecursiveProds.map((prod) => {
+                if (prod === '&' || prod === '') {
+                    return `${newNonTerminal}`;
+                }
+                return `${prod}${newNonTerminal}`;
+            });
+        }
         newGrammar[newNonTerminal] = recursiveProds.map((prod) => `${prod}${newNonTerminal}`);
         newGrammar[newNonTerminal].push("&"); // Agregar ε para permitir producción vacía
     }
