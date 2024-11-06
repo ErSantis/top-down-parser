@@ -27,7 +27,6 @@ export function calculateFirstSets(grammar: Grammar): FirstSet {
             let containsEpsilon = true;
             const symbols = splitProduction(production); // Obtener símbolos completos en la producción
             for (const prodSymbol of symbols) {
-                console.log(prodSymbol);
                 const firstOfProdSymbol = getFirst(prodSymbol);
 
                 // Agregar todos los elementos de PRIMERO(Y_i) a PRIMERO(X), excepto &
