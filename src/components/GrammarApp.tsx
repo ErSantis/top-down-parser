@@ -20,9 +20,9 @@ const GrammarApp: React.FC = () => {
     const [parsingTable, setParsingTable] = useState<{ [symbol: string]: { [symbol: string]: string } } | null>(null);
     const [terminals, setTerminals] = useState<string[]>([]);
 
-    
-    
-    
+
+
+
     const handleGrammarSubmit = (inputGrammar: Grammar) => {
         // Eliminar recursividad y factorizar la gramática
         console.log(inputGrammar);
@@ -43,6 +43,7 @@ const GrammarApp: React.FC = () => {
 
         const Mtable = constructParsingTable(factoredGrammar, firstSets, followSets);
         setParsingTable(Mtable);
+        console.log(Mtable);
 
         const terminalsInOrder = extractTerminalsInOrder(factoredGrammar);
         setTerminals(terminalsInOrder)
@@ -53,9 +54,12 @@ const GrammarApp: React.FC = () => {
             <h1>Procesador de Gramática: Recursividad y PRIMERO</h1>
             <GrammarInput onGrammarSubmit={handleGrammarSubmit} />
             {processedGrammar && <NonRecursiveGrammarDisplay grammar={processedGrammar} />}
-            {firstSet && <FirstSetDisplay firstSet={firstSet} />}
-            {followSet && <FollowSetDisplay folloset={followSet} />}
-            {parsingTable && <ParsingTableDisplay parsingTable={parsingTable}  terminals={terminals}/>}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {firstSet && <FirstSetDisplay firstSet={firstSet} />}
+                {followSet && <FollowSetDisplay folloset={followSet} />}
+            </div>
+
+            {parsingTable && <ParsingTableDisplay parsingTable={parsingTable} terminals={terminals} />}
         </div>
     );
 };

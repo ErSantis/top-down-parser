@@ -35,8 +35,9 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-textarea{
-  background-color:rgba(255, 255, 255, 0.87);
+
+textarea {
+  background-color: rgba(255, 255, 255, 0.87);
   color: #242424;
 }
 
@@ -47,7 +48,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: rgba(255, 255, 255, 0.87) ;
+  background-color: rgba(255, 255, 255, 0.87);
   color: #242424;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -60,19 +61,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
 }
