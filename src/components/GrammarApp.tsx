@@ -51,12 +51,12 @@ const GrammarApp: React.FC = () => {
             {processedGrammar && <NonRecursiveGrammarDisplay grammar={processedGrammar} />}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {firstSet && <FirstSetDisplay firstSet={firstSet} />}
-                {followSet && <FollowSetDisplay folloset={followSet} />}
+                {followSet && <FollowSetDisplay followSet={followSet} />}
             </div>
 
             {parsingTable && <ParsingTableDisplay parsingTable={parsingTable} terminals={terminals} />}
 
-            
+
             {/* Simulador de análisis descendente */}
             {parsingTable && (
                 <ParserSimulator parsingTable={parsingTable} startSymbol={startSymbol} />

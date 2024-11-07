@@ -2,14 +2,14 @@
 import { FollowSet } from "../types/Grammar.type";
 
 interface FollowSetDisplayProps {
-    folloset: FollowSet;
+    followSet: FollowSet;
 }
-const FirstSetDisplay: React.FC<FollowSetDisplayProps> = ({ folloset }) => {
+const FirstSetDisplay: React.FC<FollowSetDisplayProps> = ({ followSet }) => {
     return (
         <div>
             <h2>Conjuntos SIGUIENTES de la Gramática</h2>
             <ul>
-                {Object.entries(folloset).map(([nonTerminal, symbols]) => (
+                {Object.entries(followSet).map(([nonTerminal, symbols]) => (
                     <li key={nonTerminal}>
                         SIGUIENTE({nonTerminal}) = {"{ "}
                         {Array.from(symbols).join(", ")}
