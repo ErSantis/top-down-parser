@@ -1,5 +1,16 @@
 // ParsingTableDisplay.tsx
 import React from "react";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Typography,
+    Box,
+} from "@mui/material";
 
 type ParsingTableProps = {
     parsingTable: { [nonTerminal: string]: { [terminal: string]: string } };
@@ -10,31 +21,39 @@ const ParsingTableDisplay: React.FC<ParsingTableProps> = ({ parsingTable, termin
     const nonTerminals = Object.keys(parsingTable);
 
     return (
-        <div style={{ marginTop: "20px" }}>
-            <h2>Tabla M (Tabla de Análisis)</h2>
-            <table border={1} cellPadding={5} style={{ borderCollapse: "collapse" }}>
-                <thead>
-                    <tr>
-                        <th>Non-terminal</th>
-                        {terminals.map(terminal => (
-                            <th key={terminal}>{terminal}</th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {nonTerminals.map(nonTerminal => (
-                        <tr key={nonTerminal}>
-                            <td>{nonTerminal}</td>
-                            {terminals.map(terminal => (
-                                <td key={terminal}>
-                                    {parsingTable[nonTerminal][terminal] || ""}
-                                </td>
+        <Box mt={3}>
+            <Typography variant="h5" gutterBottom>
+                Tabla M (Tabla de Análisis)
+            </Typography>
+            <TableContainer component={Paper} >
+                <Table sx={{ minWidth: 650 }} aria-label="tabla de análisis">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Non-terminal</TableCell>
+                            {terminals.map((terminal) => (
+                                <TableCell key={terminal} align="center">
+                                    {terminal}
+                                </TableCell>
                             ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {nonTerminals.map((nonTerminal) => (
+                            <TableRow key={nonTerminal}>
+                                <TableCell component="th" scope="row">
+                                    {nonTerminal}
+                                </TableCell>
+                                {terminals.map((terminal) => (
+                                    <TableCell key={terminal} align="center">
+                                        {parsingTable[nonTerminal][terminal] || ""}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Box>
     );
 };
 
