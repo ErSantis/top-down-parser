@@ -22,6 +22,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
     background-color: #ffffff;
+    
 }
 
 /* Estilo para el título */
@@ -41,7 +42,7 @@
 
 /* Estilo para cada elemento de la lista */
 .card li {
-    font-family: monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 16px;
     margin: 5px 0;
     color: #444;
