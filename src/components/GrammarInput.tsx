@@ -1,6 +1,7 @@
-// GrammarInput.tsx
 import React, { useState } from "react";
 import { Grammar } from "../types/Grammar.type";
+import "../styles/GrammarInput.css" // Importa el archivo CSS para los estilos
+import { validateGrammar } from "../utils/validateGrammar";
 
 interface GrammarInputProps {
     onGrammarSubmit: (grammar: Grammar) => void;
@@ -9,9 +10,25 @@ interface GrammarInputProps {
 const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
     const [input, setInput] = useState("");
 
-    const handleSubmit = () => {
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const content = e.target?.result as string;
+            setInput(content);
+            if (!validateGrammar(content)) {
+                alert("Gramática inválida: verifica que cumpla con las reglas establecidas.");
+            }
+        };
+        reader.readAsText(file);
+    };
+
+   
+    const parseGrammar = (content: string) => {
         const grammar: Grammar = {};
-        const lines = input.split("\n");
+        const lines = content.split("\n");
 
         lines.forEach(line => {
             const [left, right] = line.split("->");
@@ -19,7 +36,6 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
                 const nonTerminal = left.trim();
                 const production = right.trim();
 
-                // Si el no terminal ya existe, agregamos la nueva producción a su lista
                 if (grammar[nonTerminal]) {
                     grammar[nonTerminal].push(production);
                 } else {
@@ -31,18 +47,33 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
         onGrammarSubmit(grammar);
     };
 
+    const handleSubmit = () => {
+        if (validateGrammar(input)) {
+            parseGrammar(input);
+        } else {
+            alert("Gramática inválida: verifica que cumpla con las reglas establecidas.");
+        }
+    };
+
     return (
-        <div>
-            <h3>Ingresa la gramática:</h3>
-            <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                rows={6}
-                cols={40}
-                placeholder={"Ejemplo: E->E+T\nE->T\nT->T*F\nT->F\nF->i\nF->(E)"}
-            />
-            <br />
-            <button onClick={handleSubmit}>Eliminar Recursividad</button>
+        <div className="grammar-container">
+            <div className="dropzone">
+                <label htmlFor="dropzone-file" className="dropzone-label">
+                    <div className="dropzone-content">
+                        <svg className="dropzone-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                        </svg>
+                        <p className="dropzone-text"><span className="font-semibold">Haz clic para subir</span> o arrastra y suelta</p>
+                        <p className="dropzone-subtext">Solo archivos .txt</p>
+                    </div>
+                    <input id="dropzone-file" type="file" accept=".txt" onChange={handleFileUpload} className="dropzone-input" />
+                </label>
+            </div>
+            <div className="preview-container">
+                <h4>Vista previa de la gramática:</h4>
+                <div className="preview-box">{input || "El contenido del archivo se mostrará aquí..."}</div>
+            </div>
+            <button onClick={handleSubmit} className="submit-button">Analizar</button>
         </div>
     );
 };

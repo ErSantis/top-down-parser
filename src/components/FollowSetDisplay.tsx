@@ -6,8 +6,8 @@ interface FollowSetDisplayProps {
 }
 const FirstSetDisplay: React.FC<FollowSetDisplayProps> = ({ followSet }) => {
     return (
-        <div>
-            <h2>Conjuntos SIGUIENTES de la Gramática</h2>
+        <div className="card">
+            <h2>SIGUIENTES</h2>
             <ul>
                 {Object.entries(followSet).map(([nonTerminal, symbols]) => (
                     <li key={nonTerminal}>

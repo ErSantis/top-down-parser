@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    position: relative;
+    width: 100%;
+    border-radius: 10px; /* Ajusta el valor según tus preferencias */
+    box-sizing: border-box; /* Asegura que el padding y el border se incluyan en el ancho total */
+}
+
+.github-link {
+    position: absolute;
+    left: 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.github-link:hover {
+    text-decoration: underline;
+}
+
+.app-title {
+    margin: 0;
+    font-size: 24px;
+    color: #343a40;
+}
