@@ -14,6 +14,8 @@ import { constructParsingTable } from "../utils/m-table";
 import { extractTerminalsInOrder } from "../utils/extraxtTerminalsInOrder";
 import { Grammar } from "../types/Grammar.type";
 import '../styles/App.css';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GrammarApp: React.FC = () => {
     const [processedGrammar, setProcessedGrammar] = useState<Grammar | null>(null);
@@ -46,37 +48,40 @@ const GrammarApp: React.FC = () => {
     };
 
     return (
-        <div>
-            {/* Formulario de entrada de gramática */}
-            <GrammarInput onGrammarSubmit={handleGrammarSubmit} />
+        <>
+            <div>
+                {/* Formulario de entrada de gramática */}
+                <GrammarInput onGrammarSubmit={handleGrammarSubmit} />
 
-            {/* Muestra la gramática procesada */}
-            {processedGrammar && <NonRecursiveGrammarDisplay grammar={processedGrammar} />}
+                {/* Muestra la gramática procesada */}
+                {processedGrammar && <NonRecursiveGrammarDisplay grammar={processedGrammar} />}
 
-            {/* Muestra el conjunto de primeros y el conjunto de siguientes */}
-            {processedGrammar &&
-                <div className="container">
-                    {firstSet && <FirstSetDisplay firstSet={firstSet} />}
-                    {followSet && <FollowSetDisplay followSet={followSet} />}
-                </div>
-            }
+                {/* Muestra el conjunto de primeros y el conjunto de siguientes */}
+                {processedGrammar &&
+                    <div className="container">
+                        {firstSet && <FirstSetDisplay firstSet={firstSet} />}
+                        {followSet && <FollowSetDisplay followSet={followSet} />}
+                    </div>
+                }
 
-            {/* Muestra la tabla de análisis sintáctico */
-            }
-            {parsingTable &&
-                <div className='container'>
-                    <ParsingTableDisplay parsingTable={parsingTable} terminals={terminals} />
-                </div>
-            }
+                {/* Muestra la tabla de análisis sintáctico */
+                }
+                {parsingTable &&
+                    <div className='container'>
+                        <ParsingTableDisplay parsingTable={parsingTable} terminals={terminals} />
+                    </div>
+                }
 
 
-            {/* Simulador de análisis descendente */}
-            {parsingTable &&
-                <div className='container'>
-                    <ParserSimulator parsingTable={parsingTable} startSymbol={startSymbol} />
-                </div>
-            }
-        </div>
+                {/* Simulador de análisis descendente */}
+                {parsingTable &&
+                    <div className='container'>
+                        <ParserSimulator parsingTable={parsingTable} startSymbol={startSymbol} />
+                    </div>
+                }
+            </div>
+            <ToastContainer />
+        </>
     );
 };
 
