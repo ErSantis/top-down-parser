@@ -13,6 +13,7 @@ import { calculateFollowSets } from "../utils/followsSet";
 import { constructParsingTable } from "../utils/m-table";
 import { extractTerminalsInOrder } from "../utils/extraxtTerminalsInOrder";
 import { Grammar } from "../types/Grammar.type";
+import '../styles/App.css';
 
 const GrammarApp: React.FC = () => {
     const [processedGrammar, setProcessedGrammar] = useState<Grammar | null>(null);
@@ -45,22 +46,36 @@ const GrammarApp: React.FC = () => {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h1>Top-down Parser</h1>
+        <div>
+            {/* Formulario de entrada de gramática */}
             <GrammarInput onGrammarSubmit={handleGrammarSubmit} />
-            {processedGrammar && <NonRecursiveGrammarDisplay grammar={processedGrammar} />}
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-                {firstSet && <FirstSetDisplay firstSet={firstSet} />}
-                {followSet && <FollowSetDisplay followSet={followSet} />}
-            </div>
 
-            {parsingTable && <ParsingTableDisplay parsingTable={parsingTable} terminals={terminals} />}
+            {/* Muestra la gramática procesada */}
+            {processedGrammar && <NonRecursiveGrammarDisplay grammar={processedGrammar} />}
+
+            {/* Muestra el conjunto de primeros y el conjunto de siguientes */}
+            {processedGrammar &&
+                <div className="container">
+                    {firstSet && <FirstSetDisplay firstSet={firstSet} />}
+                    {followSet && <FollowSetDisplay followSet={followSet} />}
+                </div>
+            }
+
+            {/* Muestra la tabla de análisis sintáctico */
+            }
+            {parsingTable &&
+                <div className='container'>
+                    <ParsingTableDisplay parsingTable={parsingTable} terminals={terminals} />
+                </div>
+            }
 
 
             {/* Simulador de análisis descendente */}
-            {parsingTable && (
-                <ParserSimulator parsingTable={parsingTable} startSymbol={startSymbol} />
-            )}
+            {parsingTable &&
+                <div className='container'>
+                    <ParserSimulator parsingTable={parsingTable} startSymbol={startSymbol} />
+                </div>
+            }
         </div>
     );
 };

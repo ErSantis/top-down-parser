@@ -1,0 +1,84 @@
+/* Estilo para el contenedor principal */
+.parser-simulator {
+    width: 100%;
+}
+
+/* Estilo del input */
+.parser-simulator input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(177, 177, 177, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #777a7c;
+}
+
+/* Estilo del botón "Enviar Cadena" */
+.parser-simulator .start-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilo de los botones */
+.parser-simulator .next-step-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.parser-simulator .disabled-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #cccccc;
+    color: #666666;
+    border: none;
+    cursor: not-allowed;
+}
+
+/* Estilo de la tabla */
+.parser-simulator table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.parser-simulator th {
+    background-color: #eee;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.parser-simulator td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.parser-simulator .highlight {
+    color: blue;
+    font-weight: bold;
+}
+
+/* Estilo para el mensaje de salida */
+.parser-simulator .output-error {
+    color: red;
+}
+
+.parser-simulator .output-accepted {
+    color: green;
+}

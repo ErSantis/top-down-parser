@@ -22,11 +22,11 @@ const ParsingTableDisplay: React.FC<ParsingTableProps> = ({ parsingTable, termin
 
     return (
         <Box mt={3}>
-            <Typography variant="h5" gutterBottom>
-                Tabla M (Tabla de Análisis)
+            <Typography variant="h6" gutterBottom>
+                Tabla M 
             </Typography>
-            <TableContainer component={Paper} >
-                <Table sx={{ minWidth: 650 }} aria-label="tabla de análisis">
+            <TableContainer component={Paper} sx={{ minWidth: 800 }}>
+                <Table sx={{ minWidth: 200 }} aria-label="tabla de análisis">
                     <TableHead>
                         <TableRow>
                             <TableCell>Non-terminal</TableCell>

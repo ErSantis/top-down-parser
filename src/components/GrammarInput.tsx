@@ -73,7 +73,7 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
                 <h4>Vista previa de la gramática:</h4>
                 <div className="preview-box">{input || "El contenido del archivo se mostrará aquí..."}</div>
             </div>
-            <button onClick={handleSubmit} className="submit-button">Eliminar Recursividad</button>
+            <button onClick={handleSubmit} className="submit-button">Analizar</button>
         </div>
     );
 };
