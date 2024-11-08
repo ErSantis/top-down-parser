@@ -1,8 +1,7 @@
-import './App.css'
-import GrammarApp from './components/GrammarApp'
+//import './App.css'
+import GrammarApp from './GrammarApp'
 
 function App() {
-
   return (
     <GrammarApp />
   )

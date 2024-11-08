@@ -6,8 +6,8 @@ interface FirstSetDisplayProps {
 }
 const FirstSetDisplay: React.FC<FirstSetDisplayProps> = ({ firstSet }) => {
     return (
-        <div>
-            <h2>Conjuntos PRIMERO de la Gramática</h2>
+        <div className="card">
+            <h2>PRIMEROS</h2>
             <ul>
                 {Object.entries(firstSet).map(([nonTerminal, symbols]) => (
                     <li key={nonTerminal}>

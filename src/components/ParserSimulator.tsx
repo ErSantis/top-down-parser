@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles/ParserSimulator.css";
 
 interface ParserSimulatorProps {
     parsingTable: { [nonTerminal: string]: { [terminal: string]: string } };
@@ -46,7 +47,6 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
         let outputMessage = "";
 
         if (topStack === "$" && nextInput === "$") {
-            // Aceptación
             outputMessage = "Cadena aceptada";
             setAccepted(true);
             setSteps((prevSteps) => [
@@ -61,28 +61,22 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
         }
 
         if (topStack === nextInput) {
-            // Coincidencia (match) del símbolo de entrada y el tope de la pila
             outputMessage = `Match ${nextInput}`;
-            currentStack.pop();  // Eliminar el tope de la pila
+            currentStack.pop();
             setStack(currentStack);
-            setInput(currentInput.slice(1));  // Avanzar en la entrada
+            setInput(currentInput.slice(1));
         } else if (parsingTable[topStack] && parsingTable[topStack][nextInput]) {
-            // Si hay una regla en la tabla de análisis para el símbolo en el tope de la pila y el símbolo de entrada
             const production = parsingTable[topStack][nextInput].split('->')[1].trim();
             outputMessage = `${topStack} -> ${production}`;
-            currentStack.pop();  // Eliminar el no terminal de la pila
+            currentStack.pop();
 
-            // Insertar los símbolos de la producción en orden inverso
-            const productionSymbols = production === "&"
-                ? []  // Si es producción vacía (ε), no agregar nada
-                : production.match(/[A-Z]'*|./g) || [];
+            const productionSymbols = production === "&" ? [] : production.match(/[A-Z]'*|./g) || [];
             setStack([...currentStack, ...productionSymbols.reverse()]);
         } else {
             outputMessage = `Error: no rule for ${topStack} with ${nextInput}`;
             setError(true);
         }
 
-        // Agregar el paso actual a la lista de pasos
         setSteps((prevSteps) => [
             ...prevSteps,
             {
@@ -93,40 +87,19 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
         ]);
     };
 
-    const tableHeaderStyle = { backgroundColor: "#eee", padding: "10px", fontWeight: "bold" };
-    const tableCellStyle: React.CSSProperties = { padding: "10px", textAlign: "center", border: "1px solid #ddd" };
-    const enabledButtonStyle: React.CSSProperties = {
-        marginTop: "20px",
-        padding: "10px 20px",
-        fontSize: "16px",
-        backgroundColor: "#007bff",
-        color: "white",
-        border: "none",
-        cursor: "pointer"
-    };
-    const disabledButtonStyle: React.CSSProperties = {
-        marginTop: "20px",
-        padding: "10px 20px",
-        fontSize: "16px",
-        backgroundColor: "#cccccc",
-        color: "#666666",
-        border: "none",
-        cursor: "not-allowed"
-    };
-
     return (
-        <div>
+        <div className="parser-simulator">
             <h3>Simulación de Análisis</h3>
             <input
                 type="text"
                 value={inputString}
                 onChange={(e) => setInputString(e.target.value)}
                 placeholder="Ingresa la cadena a testear"
-                style={{ marginBottom: "10px", padding: "10px", fontSize: "16px" }}
+                className="parser-simulator-input"
             />
             <button
                 onClick={handleStart}
-                style={{ marginBottom: "20px", padding: "10px 20px", fontSize: "16px" }}
+                className="start-button"
             >
                 Enviar Cadena
             </button>
@@ -134,40 +107,38 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
                 <>
                     <button
                         onClick={handleNextStep}
-                        style={(accepted || error) ? disabledButtonStyle : enabledButtonStyle}
-
+                        className={accepted || error ? "disabled-button" : "next-step-button"}
                     >
                         Siguiente Paso
                     </button>
-                    <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
+                    <table>
                         <thead>
                             <tr>
-                                <th style={tableHeaderStyle}>Paso</th>
-                                <th style={tableHeaderStyle}>Pila</th>
-                                <th style={tableHeaderStyle}>Entrada</th>
-                                <th style={tableHeaderStyle}>Salida</th>
+                                <th>Paso</th>
+                                <th>Pila</th>
+                                <th>Entrada</th>
+                                <th>Salida</th>
                             </tr>
                         </thead>
                         <tbody>
                             {steps.map((step, index) => (
                                 <tr key={index}>
-                                    <td style={tableCellStyle}>{index + 1}</td>
-                                    <td style={tableCellStyle}>
+                                    <td>{index + 1}</td>
+                                    <td>
                                         {step.stack.slice(0, step.stack.length - 1)}
-                                        <span style={{ color: 'blue', fontWeight: 'bold' }}>{step.stack.slice(-1)}</span>
+                                        <span className="highlight">{step.stack.slice(-1)}</span>
                                     </td>
-                                    <td style={tableCellStyle}>
-                                        <span style={{ color: "blue", fontWeight: 'bold' }}>{step.input[0]}</span>
+                                    <td>
+                                        <span className="highlight">{step.input[0]}</span>
                                         {step.input.slice(1)}
                                     </td>
-                                    <td style={{ ...tableCellStyle, color: step.output.includes("Error") ? "red" : step.output.includes("aceptada") ? "green" : "black" }}>
+                                    <td className={step.output.includes("Error") ? "output-error" : step.output.includes("aceptada") ? "output-accepted" : ""}>
                                         {step.output}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-
                 </>
             )}
         </div>
