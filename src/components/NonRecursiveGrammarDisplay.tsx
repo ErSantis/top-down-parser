@@ -9,12 +9,15 @@ interface NonRecursiveGrammarDisplayProps {
 const NonRecursiveGrammarDisplay: React.FC<NonRecursiveGrammarDisplayProps> = ({ grammar }) => {
     return (
         <div className="grammar-display-container">
-            <h3 className="title">Gramática sin recursividad a la izquierda:</h3>
+            <h3 className="title">Gramática sin recursividad a la izquierda y factorizada</h3>
             <pre className="grammar-content">
                 {Object.entries(grammar).map(([nonTerminal, productions]) => (
-                    <div key={nonTerminal} className="grammar-line">
-                        <span className="non-terminal">{nonTerminal}</span>{' -> '}
-                        <span className="productions">{productions.join(' | ')}</span>
+                    <div key={nonTerminal}>
+                        {productions.map((production, index) => (
+                            <div key={index}>
+                                {nonTerminal}{'->'}{production || "&"}
+                            </div>
+                        ))}
                     </div>
                 ))}
             </pre>
