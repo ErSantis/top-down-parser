@@ -19,6 +19,9 @@ export const validateGrammar = (content: string): boolean => {
         if (!rightRegex.test(right.trim())) {
             return false;
         }
+        if (right.includes("&") && right.trim() !== "&") {
+            return false;
+        }
     }
 
     return true;
