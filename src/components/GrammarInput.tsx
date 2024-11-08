@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Grammar } from "../types/Grammar.type";
 import "../styles/GrammarInput.css" // Importa el archivo CSS para los estilos
 import { validateGrammar } from "../utils/validateGrammar";
+import { toast } from "react-toastify";
+
 
 interface GrammarInputProps {
     onGrammarSubmit: (grammar: Grammar) => void;
@@ -18,9 +20,9 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
         reader.onload = (e) => {
             const content = e.target?.result as string;
             setInput(content);
-            if (!validateGrammar(content)) {
-                alert("Gramática inválida: verifica que cumpla con las reglas establecidas.");
-            }
+            // if (!validateGrammar(content)) {
+            //     toast.error('Invalid use of epsilon (&): A->A&A');
+            // }
         };
         reader.readAsText(file);
     };
@@ -34,13 +36,15 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
             const [left, right] = line.split("->");
             if (left && right) {
                 const nonTerminal = left.trim();
-                const production = right.trim();
+                const productions = right.split("|").map(prod => prod.trim());
 
-                if (grammar[nonTerminal]) {
-                    grammar[nonTerminal].push(production);
-                } else {
-                    grammar[nonTerminal] = [production];
-                }
+                productions.forEach(production => {
+                    if (grammar[nonTerminal]) {
+                        grammar[nonTerminal].push(production);
+                    } else {
+                        grammar[nonTerminal] = [production];
+                    }
+                });
             }
         });
 
@@ -51,9 +55,11 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
         if (validateGrammar(input)) {
             parseGrammar(input);
         } else {
-            alert("Gramática inválida: verifica que cumpla con las reglas establecidas.");
+            toast.error('Gramtica inválida');
         }
     };
+
+    
 
     return (
         <div className="grammar-container">
