@@ -26,7 +26,7 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
         if (started) {
             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
         }
-    }, [steps]); // Se ejecuta cada vez que `steps` se actualiza
+    }, [started, steps]); // Se ejecuta cada vez que `steps` se actualiza
 
     const handleStart = () => {
         const initialStack = ["$", startSymbol];
