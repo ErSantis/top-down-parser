@@ -113,12 +113,7 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
             </button>
             {started && (
                 <>
-                    <button
-                        onClick={handleNextStep}
-                        className={accepted || error ? "disabled-button" : "next-step-button"}
-                    >
-                        Siguiente Paso
-                    </button>
+
                     <table>
                         <thead>
                             <tr>
@@ -147,6 +142,12 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
                             ))}
                         </tbody>
                     </table>
+                    <button
+                        onClick={handleNextStep}
+                        className={accepted || error ? "disabled-button" : "next-step-button"}
+                    >
+                        Siguiente Paso
+                    </button>
                 </>
             )}
         </div>
