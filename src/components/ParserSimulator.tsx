@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import "../styles/ParserSimulator.css";
 
 interface ParserSimulatorProps {
     parsingTable: { [nonTerminal: string]: { [terminal: string]: string } };
@@ -19,6 +20,13 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
     const [started, setStarted] = useState<boolean>(false);
     const [accepted, setAccepted] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
+    //const [shouldScroll, setShouldScroll] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (started) {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+        }
+    }, [steps]); // Se ejecuta cada vez que `steps` se actualiza
 
     const handleStart = () => {
         const initialStack = ["$", startSymbol];
@@ -37,6 +45,7 @@ const ParserSimulator: React.FC<ParserSimulatorProps> = ({ parsingTable, startSy
 
     const handleNextStep = () => {
         if (accepted || error) return;
+
 
         const currentStack = [...stack];
         const currentInput = input;
