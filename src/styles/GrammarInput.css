@@ -57,6 +57,7 @@
 
 .preview-container {
     margin-bottom: 20px;
+    
 }
 
 .preview-box {
@@ -68,6 +69,8 @@
     overflow-y: auto;
     white-space: pre-wrap;
     color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
 }
 
 .submit-button {
