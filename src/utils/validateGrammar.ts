@@ -1,6 +1,6 @@
 export const validateGrammar = (content: string): boolean => {
     const lines = content.split("\n");
-    const productionRegex = /^[A-Z]'*->[^->]+$/;
+    const productionRegex = /^[A-Z]'*->(?!.*->).+$/;
 
     for (const line of lines) {
         if (!line.trim()) continue;
@@ -15,7 +15,7 @@ export const validateGrammar = (content: string): boolean => {
         if (!leftRegex.test(left.trim())) {
             return false;
         }
-        const rightRegex = /^[^->]+$/;
+        const rightRegex = /^(?!.*->).+$/;
         if (!rightRegex.test(right.trim())) {
             return false;
         }

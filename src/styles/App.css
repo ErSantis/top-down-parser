@@ -43,7 +43,7 @@
 /* Estilo para cada elemento de la lista */
 .card li {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 18px;
+    font-size: 16px;
     margin: 5px 0;
     color: #444;
 }
