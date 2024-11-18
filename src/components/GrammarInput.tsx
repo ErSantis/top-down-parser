@@ -27,7 +27,7 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
         reader.readAsText(file);
     };
 
-   
+
     const parseGrammar = (content: string) => {
         const grammar: Grammar = {};
         const lines = content.split("\n");
@@ -36,7 +36,14 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
             const [left, right] = line.split("->");
             if (left && right) {
                 const nonTerminal = left.trim();
-                const productions = right.split("|").map(prod => prod.trim());
+                // Divide las producciones y limpia `&` solo si no está solo
+                const productions = right.split("|").map(prod => {
+                    const cleanedProd = prod.includes("&") && prod.trim() !== "&"
+                        ? prod.replace(/&/g, "") // Elimina `&` si está con otros caracteres
+                        : prod.trim(); // Deja `&` si está solo
+
+                    return cleanedProd.trim();
+                });
 
                 productions.forEach(production => {
                     if (grammar[nonTerminal]) {
@@ -51,6 +58,7 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
         onGrammarSubmit(grammar);
     };
 
+
     const handleSubmit = () => {
         if (validateGrammar(input)) {
             parseGrammar(input);
@@ -59,7 +67,7 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
         }
     };
 
-    
+
 
     return (
         <div className="grammar-container">
@@ -67,7 +75,7 @@ const GrammarInput: React.FC<GrammarInputProps> = ({ onGrammarSubmit }) => {
                 <label htmlFor="dropzone-file" className="dropzone-label">
                     <div className="dropzone-content">
                         <svg className="dropzone-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                         </svg>
                         <p className="dropzone-text"><span className="font-semibold">Haz clic para subir</span> o arrastra y suelta</p>
                         <p className="dropzone-subtext">Solo archivos .txt</p>
